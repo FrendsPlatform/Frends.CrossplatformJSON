@@ -1,12 +1,9 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-
-namespace Frends.JSON.EnforceTypes.Definitions
+﻿namespace Frends.JSON.EnforceTypes.Definitions
 {
     /// <summary>
     /// Parameters class usually contains parameters that are required.
     /// </summary>
-    public class EnforceJsonTypesInput
+    public class EnforceTypesInput
     {
         /// <summary>
         /// The JSON string to be processed.

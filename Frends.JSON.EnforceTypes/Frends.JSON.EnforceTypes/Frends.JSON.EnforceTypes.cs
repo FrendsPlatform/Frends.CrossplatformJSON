@@ -12,17 +12,20 @@ namespace Frends.JSON.EnforceTypes
         /// Json paths and corresponding Json types.
         /// [Documentation](https://tasks.frends.com/tasks#frends-tasks/Frends.JSON.EnforceTypes)
         /// </summary>
+        /// <param name="parameters">Parameters</param>
+        /// <param name="cancellationToken"></param>
         /// <returns>string</returns>
-        public static string EnforceJsonTypes(EnforceJsonTypesInput input, CancellationToken cancellationToken)
+        public static string EnforceTypes(EnforceTypesInput parameters, CancellationToken cancellationToken)
         {
-            var jObject = JObject.Parse(input.Json);
+            var jObject = JObject.Parse(parameters.Json);
 
-            foreach (var rule in input.Rules)
+            foreach (var rule in parameters.Rules)
             {
-                cancellationToken.ThrowIfCancellationRequested();
-
+                if (!rule.JsonPath.StartsWith("$."))
+                    rule.JsonPath = "$." + rule.JsonPath;
                 foreach (var jToken in jObject.SelectTokens(rule.JsonPath))
                 {
+                    cancellationToken.ThrowIfCancellationRequested();
                     ChangeDataType(jToken, rule.DataType);
                 }
             }
@@ -62,7 +65,8 @@ namespace Frends.JSON.EnforceTypes
             if (jToken is JArray) return;
             if (jToken.Parent is JProperty jProperty)
             {
-                var jArray = new JArray {  jToken };
+                var jArray = new JArray();
+                jArray.Add(jToken);
                 jProperty.Value = jArray;
                 return;
             }
@@ -78,6 +82,7 @@ namespace Frends.JSON.EnforceTypes
                     case JsonDataType.String:
                         newValue = value.Value<string>();
                         break;
+
                     case JsonDataType.Number:
                         if (value.Value == null || (value.Value as string) == "") newValue = null;
                         else
@@ -87,21 +92,25 @@ namespace Frends.JSON.EnforceTypes
                             else newValue = value.Value<int>();
                         }
                         break;
+
                     case JsonDataType.Boolean:
                         if (value.Value == null || (value.Value as string) == "") newValue = null;
                         else newValue = value.Value<bool>();
                         break;
+
                     case JsonDataType.Array:
                         // Here we actually need to replace the JValue with a JArray that would contain the current JValue
-                        if (value.Parent is JProperty jProperty)
+                        var jProperty = value.Parent as JProperty;
+                        if (jProperty != null)
                         {
-                            var jArray = new JArray { value };
+                            var jArray = new JArray();
+                            jArray.Add(value);
                             jProperty.Value = jArray;
                         }
-
                         break;
+
                     default:
-                        throw new Exception($"Unknown Json data type {dataType}");
+                        throw new Exception($"Unknown JSON data type {dataType}");
                 }
 
                 if (dataType != JsonDataType.Array) value.Value = newValue;

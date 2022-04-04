@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿#pragma warning disable 1591
 
 namespace Frends.JSON.EnforceTypes.Definitions
 {
@@ -8,8 +7,18 @@ namespace Frends.JSON.EnforceTypes.Definitions
     /// </summary>
     public class JsonTypeRule
     {
+        public JsonTypeRule()
+        {
+        }
+
+        public JsonTypeRule(string jsonPath, JsonDataType dataType)
+        {
+            this.JsonPath = jsonPath;
+            this.DataType = dataType;
+        }
+
         /// <summary>
-        /// Json path for the rule
+        /// JSON path for the rule
         /// </summary>
         public string JsonPath { get; set; }
 

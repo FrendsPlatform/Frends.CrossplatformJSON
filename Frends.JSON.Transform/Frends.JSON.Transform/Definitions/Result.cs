@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json.Linq;
 
 #pragma warning disable 1591
 
-namespace Frends.JSON.EnforceTypes.Definitions
+namespace Frends.JSON.Transform.Definitions
 {
     /// <summary>
     /// Return object with private setters
@@ -10,13 +11,28 @@ namespace Frends.JSON.EnforceTypes.Definitions
     public class Result
     {
         /// <summary>
-        /// The input json as a string.
+        /// Transformation result as string
         /// </summary>
-        public string JsonAsString { get; private set; }
+        public string Transformation { get; set; }
 
-        public Result(string json)
+        private readonly Lazy<JToken> _jToken;
+
+        public Result(string transformationResult)
         {
-            JsonAsString = json;
+            Transformation = transformationResult;
+
+            _jToken = new Lazy<JToken>(() => ParseJson(Transformation));
+        }
+
+        /// <summary>
+        /// Get transformation result as JToken
+        /// </summary>
+        public JToken ToJson() { return _jToken.Value; }
+
+
+        private static JToken ParseJson(string jsonString)
+        {
+            return JToken.Parse(jsonString);
         }
     }
 }

@@ -98,17 +98,6 @@ namespace Frends.JSON.EnforceTypes
                         else newValue = value.Value<bool>();
                         break;
 
-                    case JsonDataType.Array:
-                        // Here we actually need to replace the JValue with a JArray that would contain the current JValue
-                        var jProperty = value.Parent as JProperty;
-                        if (jProperty != null)
-                        {
-                            var jArray = new JArray();
-                            jArray.Add(value);
-                            jProperty.Value = jArray;
-                        }
-                        break;
-
                     default:
                         throw new Exception($"Unknown JSON data type {dataType}");
                 }

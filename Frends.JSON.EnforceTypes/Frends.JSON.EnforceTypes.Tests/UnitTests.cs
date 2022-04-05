@@ -11,7 +11,7 @@ namespace Frends.JSON.EnforceTypes.Tests
     class TestClass
     {
         [Test]
-        public void EnforceJsonTypesTest()
+        public void EnforceJsonTypesWithoutPositionalOperatorTest()
         {
             var json = "{\"hello\": \"123\",\"hello_2\": \"123.5\",\"world\": \"true\",\"bad_arr\": \"hello, world\",\"bad_arr_2\": { \"prop1\": 123 },\"good_arr\": [ \"hello, world\" ],\"good_arr_2\": [ { \"prop1\": 123 } ]}";
             var result = JSON.EnforceTypes(
@@ -36,6 +36,31 @@ namespace Frends.JSON.EnforceTypes.Tests
         }
 
         [Test]
+        public void EnforceJsonTypesWithPositionalOperatorTest()
+        {
+            var json = "{\"hello\": \"123\",\"hello_2\": \"123.5\",\"world\": \"true\",\"bad_arr\": \"hello, world\",\"bad_arr_2\": { \"prop1\": 123 },\"good_arr\": [ \"hello, world\" ],\"good_arr_2\": [ { \"prop1\": 123 } ]}";
+            var result = JSON.EnforceTypes(
+                new EnforceTypesInput
+                {
+                    Json = json,
+                    Rules = new[]
+                    {
+                        new JsonTypeRule{JsonPath = "$.hello", DataType = JsonDataType.Number },
+                        new JsonTypeRule{JsonPath = "$.hello_2", DataType = JsonDataType.Number },
+                        new JsonTypeRule{JsonPath = "$.world", DataType = JsonDataType.Boolean },
+                        new JsonTypeRule{JsonPath = "$.bad_arr", DataType = JsonDataType.Array },
+                        new JsonTypeRule{JsonPath = "$.bad_arr_2", DataType = JsonDataType.Array },
+                        new JsonTypeRule{JsonPath = "$.good_arr", DataType = JsonDataType.Array },
+                        new JsonTypeRule{JsonPath = "$.good_arr_2", DataType = JsonDataType.Array },
+                    }
+                }, new CancellationToken());
+            var expected = JObject.Parse("{\"hello\": 123,\"hello_2\": 123.5,\"world\": true,\"bad_arr\": [\"hello, world\"],\"bad_arr_2\": [{\"prop1\": 123}],\"good_arr\": [\"hello, world\"],\"good_arr_2\": [{\"prop1\": 123}]}");
+            Console.WriteLine("Expected: \n" + expected);
+            Console.WriteLine("Result: \n" + result);
+            Assert.AreEqual(expected.ToString(), result);
+        }
+
+        [Test]
         public void ChangeDataTypeTest_Number()
         {
             JValue jValue;
@@ -49,6 +74,10 @@ namespace Frends.JSON.EnforceTypes.Tests
             jValue = new JValue("foo");
             JSON.ChangeDataType(jValue, JsonDataType.Number);
             Assert.AreEqual("foo", jValue.Value);
+
+            jValue = new JValue("111");
+            JSON.ChangeDataType(jValue, JsonDataType.Number);
+            Assert.AreEqual(111, jValue.Value);
 
             // Source is number - do nothing
             jValue = new JValue(1.23);
@@ -70,6 +99,28 @@ namespace Frends.JSON.EnforceTypes.Tests
             jValue = new JValue((string)null);
             JSON.ChangeDataType(jValue, JsonDataType.Number);
             Assert.AreEqual(null, jValue.Value);
+
+            // Null bool
+            jValue = new JValue((bool?)null);
+            JSON.ChangeDataType(jValue, JsonDataType.Boolean);
+            Assert.AreEqual(null, jValue.Value);
+
+            // Null string
+            jValue = new JValue("");
+            JSON.ChangeDataType(jValue, JsonDataType.String);
+            Assert.AreEqual(string.Empty, jValue.Value);
+
+            jValue = null;
+            var ex = Assert.Throws<ArgumentNullException>(() => JSON.ChangeDataType(jValue, JsonDataType.String));
+            Assert.That(ex.Message.StartsWith("Value cannot be null."));
+        }
+
+        [Test]
+        public void ChangeDataTypeThrows_InvalidJValue()
+        {
+            var jValue = 12;
+            var ex = Assert.Throws<Exception>(() => JSON.ChangeDataType(jValue, JsonDataType.String));
+            Assert.That(ex.Message.StartsWith($"This task can only convert JValue nodes' types and turn JTokens into JArrays, but the node type provided is"));
         }
 
         [Test]
@@ -93,11 +144,6 @@ namespace Frends.JSON.EnforceTypes.Tests
             jValue = new JValue("FaLsE");
             JSON.ChangeDataType(jValue, JsonDataType.Boolean);
             Assert.AreEqual(false, jValue.Value);
-            // Null bool
-
-            jValue = new JValue((bool?)null);
-            JSON.ChangeDataType(jValue, JsonDataType.Boolean);
-            Assert.AreEqual(null, jValue.Value);
 
             // Bool source
             jValue = new JValue(true);

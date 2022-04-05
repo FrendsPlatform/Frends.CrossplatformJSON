@@ -13,7 +13,6 @@ namespace Frends.JSON.EnforceTypes
         /// [Documentation](https://tasks.frends.com/tasks#frends-tasks/Frends.JSON.EnforceTypes)
         /// </summary>
         /// <param name="parameters">Parameters</param>
-        /// <param name="cancellationToken"></param>
         /// <returns>string</returns>
         public static string EnforceTypes(EnforceTypesInput parameters, CancellationToken cancellationToken)
         {

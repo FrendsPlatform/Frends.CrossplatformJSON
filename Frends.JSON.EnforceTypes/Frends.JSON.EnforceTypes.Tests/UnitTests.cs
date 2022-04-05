@@ -118,7 +118,7 @@ namespace Frends.JSON.EnforceTypes.Tests
         [Test]
         public void ChangeDataTypeThrows_InvalidJValue()
         {
-            var jValue = 12;
+            var jValue = new JArray();
             var ex = Assert.Throws<Exception>(() => JSON.ChangeDataType(jValue, JsonDataType.String));
             Assert.That(ex.Message.StartsWith($"This task can only convert JValue nodes' types and turn JTokens into JArrays, but the node type provided is"));
         }

@@ -1,11 +1,13 @@
-# Frends.JSON.EnforceTypes
+# Frends.JSON.Transform
 
-[![Frends.JSON.EnforceTypes Main](https://github.com/FrendsPlatform/Frends.CrossplatformJSON/actions/workflows/EnforceTypes_build_and_test_on_main.yml/badge.svg)](https://github.com/FrendsPlatform/Frends.CrossplatformJSON/actions/workflows/EnforceTypes_build_and_test_on_main.yml)
-![MyGet](https://img.shields.io/myget/frends-tasks/v/Frends.CrossplatformJSON.JSON.EnforceTypes?label=NuGet)
+[![Frends.JSON.Transform Main](https://github.com/FrendsPlatform/Frends.CrossplatformJSON/actions/workflows/Transform_build_and_test_on_main.yml/badge.svg)](https://github.com/FrendsPlatform/Frends.CrossplatformJSON/actions/workflows/Transform_build_and_test_on_main.yml)
+![MyGet](https://img.shields.io/myget/frends-tasks/v/Frends.CrossplatformJSON.JSON.Transform?label=NuGet)
 ![GitHub](https://img.shields.io/github/license/FrendsPlatform/Frends.CrossplatformJSON?label=License)
-![Coverage](https://app-github-custom-badges.azurewebsites.net/Badge?key=FrendsPlatform/Frends.CrossplatformJSON/Frends.JSON.EnforceTypes|main)
+![Coverage](https://app-github-custom-badges.azurewebsites.net/Badge?key=FrendsPlatform/Frends.CrossplatformJSON/Frends.JSON.Transform|main)
 
-Frends task for enforcing types in JSON documents. The main use case is when you e.g. convert XML into JSON and you lose all the type info in the resulting JSON document. With this task you can restore the types inside the JSON document
+The JsonMapper task is meant for simple JSON to JSON transformation using JUST.net library. It can also be used for JSON to XML or CSV transformation, but it is not recommeded.
+
+Input JSON is validated before actual transformation is executed. If input is invalid or transformation fails, an exception is thrown.
 
 ## Installing
 
@@ -19,7 +21,7 @@ Clone a copy of the repo
 
 Go to the task directory.
 
-`cd Frends.Crossplatform/Frends.JSON.EnforceTypes`
+`cd Frends.Crossplatform/Frends.JSON.Transform`
 
 Rebuild the project
 

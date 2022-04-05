@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.ComponentModel;
+using Newtonsoft.Json.Linq;
 using Frends.JSON.EnforceTypes.Definitions;
 
 #pragma warning disable 1591
@@ -13,13 +14,14 @@ namespace Frends.JSON.EnforceTypes
         /// [Documentation](https://tasks.frends.com/tasks#frends-tasks/Frends.JSON.EnforceTypes)
         /// </summary>
         /// <param name="parameters">Parameters</param>
-        /// <returns>string</returns>
-        public static string EnforceTypes(EnforceTypesInput parameters, CancellationToken cancellationToken)
+        /// <returns>Result object { string JsonAsString }</returns>
+        public static Result EnforceTypes([PropertyTab]EnforceTypesInput parameters, CancellationToken cancellationToken)
         {
             var jObject = JObject.Parse(parameters.Json);
 
             foreach (var rule in parameters.Rules)
             {
+                // Checks if user has used the $. positional operator in JsonPath input
                 if (!rule.JsonPath.StartsWith("$."))
                     rule.JsonPath = "$." + rule.JsonPath;
                 foreach (var jToken in jObject.SelectTokens(rule.JsonPath))
@@ -29,11 +31,12 @@ namespace Frends.JSON.EnforceTypes
                 }
             }
 
-            return jObject.ToString();
+            return new Result(jObject.ToString());
         }
 
         /// <summary>
-        /// Changes value of JValue object to the desired Json data type
+        /// Changes value of JValue object to the desired Json data type.
+        /// This method is used in unit tests.
         /// </summary>
         /// <returns></returns>
         public static void ChangeDataType(JToken value, JsonDataType dataType)
@@ -59,10 +62,10 @@ namespace Frends.JSON.EnforceTypes
 
         private static void ChangeJTokenIntoArray(JToken jToken)
         {
-            if (jToken.ToString().Equals("null")) return;
-            if (jToken.Type == JTokenType.Null) return;
-            if (jToken is JArray) return;
-            if (jToken.Parent is JProperty jProperty)
+            if ((jToken.Parent is JProperty jProperty) && 
+                !(jToken.ToString().Equals("null")) && 
+                !(jToken.Type == JTokenType.Null) && 
+                !(jToken is JArray))
             {
                 var jArray = new JArray();
                 jArray.Add(jToken);

@@ -7,16 +7,6 @@ namespace Frends.JSON.EnforceTypes.Definitions
     /// </summary>
     public class JsonTypeRule
     {
-        public JsonTypeRule()
-        {
-        }
-
-        public JsonTypeRule(string jsonPath, JsonDataType dataType)
-        {
-            this.JsonPath = jsonPath;
-            this.DataType = dataType;
-        }
-
         /// <summary>
         /// JSON path for the rule
         /// </summary>

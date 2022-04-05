@@ -6,6 +6,11 @@ namespace Frends.JSON.EnforceTypes.Definitions
 {
     public class Result
     {
+        public string JsonAsString { get; private set; }
 
+        public Result(string json)
+        {
+            JsonAsString = json;
+        }
     }
 }

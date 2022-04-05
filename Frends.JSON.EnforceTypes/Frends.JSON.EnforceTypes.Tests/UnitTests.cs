@@ -31,8 +31,8 @@ namespace Frends.JSON.EnforceTypes.Tests
                 }, new CancellationToken());
             var expected = JObject.Parse("{\"hello\": 123,\"hello_2\": 123.5,\"world\": true,\"bad_arr\": [\"hello, world\"],\"bad_arr_2\": [{\"prop1\": 123}],\"good_arr\": [\"hello, world\"],\"good_arr_2\": [{\"prop1\": 123}]}");
             Console.WriteLine("Expected: \n" + expected);
-            Console.WriteLine("Result: \n" + result);
-            Assert.AreEqual(expected.ToString(), result);
+            Console.WriteLine("Result: \n" + result.JsonAsString);
+            Assert.AreEqual(expected.ToString(), result.JsonAsString);
         }
 
         [Test]
@@ -56,8 +56,8 @@ namespace Frends.JSON.EnforceTypes.Tests
                 }, new CancellationToken());
             var expected = JObject.Parse("{\"hello\": 123,\"hello_2\": 123.5,\"world\": true,\"bad_arr\": [\"hello, world\"],\"bad_arr_2\": [{\"prop1\": 123}],\"good_arr\": [\"hello, world\"],\"good_arr_2\": [{\"prop1\": 123}]}");
             Console.WriteLine("Expected: \n" + expected);
-            Console.WriteLine("Result: \n" + result);
-            Assert.AreEqual(expected.ToString(), result);
+            Console.WriteLine("Result: \n" + result.JsonAsString);
+            Assert.AreEqual(expected.ToString(), result.JsonAsString);
         }
 
         [Test]
@@ -231,7 +231,7 @@ namespace Frends.JSON.EnforceTypes.Tests
     }
   ]
 }");
-            Assert.AreEqual(expected.ToString(), result);
+            Assert.AreEqual(expected.ToString(), result.JsonAsString);
         }
 
         [Test]
@@ -281,7 +281,7 @@ namespace Frends.JSON.EnforceTypes.Tests
     }
   ]
 }");
-            Assert.AreEqual(expected.ToString(), result);
+            Assert.AreEqual(expected.ToString(), result.JsonAsString);
         }
     }
 }

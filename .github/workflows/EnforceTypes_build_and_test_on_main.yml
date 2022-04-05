@@ -2,7 +2,7 @@ name: Frends.JSON.EnforceTypes Test
 
 on:
   push:
-    branches-ignore:
+    branches:
       - main
     paths:
       - 'Frends.JSON.EnforceTypes/**'
@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    uses: FrendsPlatform/FrendsTasks/.github/workflows/build_test.yml@main
+    uses: FrendsPlatform/FrendsTasks/.github/workflows/build_main.yml@main
     with:
       workdir: Frends.JSON.EnforceTypes
     secrets:

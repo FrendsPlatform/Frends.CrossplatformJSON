@@ -17,7 +17,7 @@
 	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
 	  <Description>Frends task for enforcing types in JSON documents.</Description>
 	  <PackageProjectUrl>https://frends.com/</PackageProjectUrl>
-	  <RepositoryUrl>https://github.com/FrendsPlatform/Frends.JSON/tree/main/Frends.JSON.EnforceTypes</RepositoryUrl>
+	  <RepositoryUrl>https://github.com/FrendsPlatform/Frends.CrossplatformJSON/tree/main/Frends.JSON.EnforceTypes</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,4 +1,4 @@
-name: Frends.JSON.EnforceTypes Test
+name: Frends.JSON.EnforceTypes Main
 
 on:
   push:
@@ -16,5 +16,4 @@ jobs:
       workdir: Frends.JSON.EnforceTypes
     secrets:
       badge_service_api_key: ${{ secrets.BADGE_SERVICE_API_KEY }}
-      test_feed_api_key: ${{ secrets.TASKS_TEST_FEED_API_KEY }}
       

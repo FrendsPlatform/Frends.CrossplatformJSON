@@ -14,19 +14,19 @@ namespace Frends.JSON.Transform.Definitions
         /// </summary>
         public string Transformation { get; private set; }
 
-        private readonly Lazy<JToken> _jToken;
+        private readonly JToken _jToken;
 
         public Result(string transformationResult)
         {
             Transformation = transformationResult;
 
-            _jToken = new Lazy<JToken>(() => ParseJson(Transformation));
+            _jToken = ParseJson(Transformation);
         }
 
         /// <summary>
         /// Get transformation result as JToken
         /// </summary>
-        public JToken ToJson() { return _jToken.Value; }
+        public JToken ToJson() { return _jToken; }
 
 
         private static JToken ParseJson(string jsonString)

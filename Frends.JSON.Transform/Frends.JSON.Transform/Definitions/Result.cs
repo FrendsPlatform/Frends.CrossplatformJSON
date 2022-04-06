@@ -14,24 +14,16 @@ namespace Frends.JSON.Transform.Definitions
         /// </summary>
         public string Transformation { get; private set; }
 
-        private readonly JToken _jToken;
+        /// <summary>
+        /// Transformation result as JToken
+        /// </summary>
+        public JToken JToken { get; private set; }
 
-        public Result(string transformationResult)
+        public Result(string transformationResult, JToken jToken)
         {
             Transformation = transformationResult;
 
-            _jToken = ParseJson(Transformation);
-        }
-
-        /// <summary>
-        /// Get transformation result as JToken
-        /// </summary>
-        public JToken ToJson() { return _jToken; }
-
-
-        private static JToken ParseJson(string jsonString)
-        {
-            return JToken.Parse(jsonString);
+            JToken = jToken;
         }
     }
 }

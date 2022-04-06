@@ -54,7 +54,7 @@ namespace Frends.JSON.Transform.Tests
         {
             var result = JSON.Transform(_testInput);
 
-            var fullName = result.ToJson()["FullName"].Value<string>();
+            var fullName = result.JToken["FullName"].Value<string>();
 
             Assert.AreEqual("Veijo Frends", fullName);
         }
@@ -64,7 +64,7 @@ namespace Frends.JSON.Transform.Tests
         {
             var result = JSON.Transform(_testInput);
 
-            var age = result.ToJson()["Age"];
+            var age = result.JToken["Age"];
 
             Assert.AreEqual(JTokenType.Integer, age.Type);
             Assert.AreEqual(30, age.Value<int>());
@@ -75,7 +75,7 @@ namespace Frends.JSON.Transform.Tests
         {
             var result = JSON.Transform(_testInput);
 
-            var breething = result.ToJson()["StillBreething"];
+            var breething = result.JToken["StillBreething"];
 
             Assert.AreEqual(JTokenType.Boolean, breething.Type);
             Assert.AreEqual(false, breething.Value<bool>());
@@ -88,7 +88,7 @@ namespace Frends.JSON.Transform.Tests
             _testInput.JsonMap = @"{""firstElement"":""#valueof($.array[0].key)""}";
 
             var result = JSON.Transform(_testInput);
-            var firstElement = result.ToJson()["firstElement"].Value<string>();
+            var firstElement = result.JToken["firstElement"].Value<string>();
 
             Assert.AreEqual("first element", firstElement);
             

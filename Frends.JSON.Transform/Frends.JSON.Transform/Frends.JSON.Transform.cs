@@ -42,7 +42,7 @@ namespace Frends.JSON.Transform
                 throw new Exception("Json transformation failed: " + ex.Message, ex);
             }
 
-            return new Result(result);
+            return new Result(result, JToken.Parse(result));
         }
     }
 }

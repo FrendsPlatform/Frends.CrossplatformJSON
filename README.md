@@ -5,6 +5,7 @@ Frends tasks for JSON manipulation.
 # Tasks
 
 - [Frends.JSON.EnforceTypes](Frends.JSON.EnforceTypes/README.md)
+- [Frends.JSON.Transform](Frends.JSON.Transform/README.md)
 
 # Contributing
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.

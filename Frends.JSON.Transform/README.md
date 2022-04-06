@@ -5,7 +5,7 @@
 ![GitHub](https://img.shields.io/github/license/FrendsPlatform/Frends.CrossplatformJSON?label=License)
 ![Coverage](https://app-github-custom-badges.azurewebsites.net/Badge?key=FrendsPlatform/Frends.CrossplatformJSON/Frends.JSON.Transform|main)
 
-The JsonMapper task is meant for simple JSON to JSON transformation using JUST.net library. It can also be used for JSON to XML or CSV transformation, but it is not recommeded.
+The Transform task is meant for simple JSON to JSON transformation using JUST.net library. It can also be used for JSON to XML or CSV transformation, but it is not recommeded.
 
 Input JSON is validated before actual transformation is executed. If input is invalid or transformation fails, an exception is thrown.
 

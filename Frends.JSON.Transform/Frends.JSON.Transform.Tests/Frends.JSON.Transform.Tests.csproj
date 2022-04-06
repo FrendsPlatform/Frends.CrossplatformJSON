@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Frends.JSON.EnforceTypes\Frends.JSON.EnforceTypes.csproj" />
+    <ProjectReference Include="..\Frends.JSON.Transform\Frends.JSON.Transform.csproj" />
   </ItemGroup>
 
 </Project>

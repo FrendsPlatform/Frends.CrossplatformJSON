@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 
 #pragma warning disable 1591
 
@@ -13,7 +12,7 @@ namespace Frends.JSON.Transform.Definitions
         /// <summary>
         /// Transformation result as string
         /// </summary>
-        public string Transformation { get; set; }
+        public string Transformation { get; private set; }
 
         private readonly Lazy<JToken> _jToken;
 

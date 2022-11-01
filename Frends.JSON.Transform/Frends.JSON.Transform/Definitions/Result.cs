@@ -12,12 +12,14 @@ namespace Frends.JSON.Transform.Definitions
         /// <summary>
         /// Transformation result as string
         /// </summary>
+        /// <example>"{\"firstName\":\"veijo\"}"</example>
         public string Transformation { get; private set; }
 
         /// <summary>
         /// Transformation result as JToken
         /// </summary>
-        public JToken JToken { get; private set; }
+        /// <example>{"firstName": "veijo"}</example>
+        public dynamic JToken { get; private set; }
 
         public Result(string transformationResult, JToken jToken)
         {

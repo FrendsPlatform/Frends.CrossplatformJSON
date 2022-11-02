@@ -1,7 +1,7 @@
 # Frends.JSON.Transform
 
 [![Frends.JSON.Transform Main](https://github.com/FrendsPlatform/Frends.CrossplatformJSON/actions/workflows/Transform_build_and_test_on_main.yml/badge.svg)](https://github.com/FrendsPlatform/Frends.CrossplatformJSON/actions/workflows/Transform_build_and_test_on_main.yml)
-![MyGet](https://img.shields.io/myget/frends-tasks/v/Frends.CrossplatformJSON.JSON.Transform?label=NuGet)
+![MyGet](https://img.shields.io/myget/frends-tasks/v/Frends.JSON.Transform?label=NuGet)
 ![GitHub](https://img.shields.io/github/license/FrendsPlatform/Frends.CrossplatformJSON?label=License)
 ![Coverage](https://app-github-custom-badges.azurewebsites.net/Badge?key=FrendsPlatform/Frends.CrossplatformJSON/Frends.JSON.Transform|main)
 

@@ -3,10 +3,11 @@ using Frends.JSON.Transform.Definitions;
 using System.ComponentModel;
 using JUST;
 
-#pragma warning disable 1591
-
 namespace Frends.JSON.Transform
 {
+    /// <summary>
+    /// Main class of the Task
+    /// </summary>
     public class JSON
     {
         /// <summary>
@@ -18,7 +19,7 @@ namespace Frends.JSON.Transform
         /// <returns>Object { string Result, JToken ToJson() }</returns>
         public static Result Transform([PropertyTab]Input input)
         {
-            string result = string.Empty;
+            string result;
             //Try parse input Json for simple validation
             try
             {
@@ -33,8 +34,8 @@ namespace Frends.JSON.Transform
                 // Throw if JsonInput's root element is JArray
                 if (JToken.Parse(input.InputJson.ToString()) is JArray)
                     throw new FormatException("Input Json is not valid: Array is not supported as root element.");
-
-                result = JsonTransformer.Transform(input.JsonMap, input.InputJson.ToString());
+                var transformer = new JsonTransformer();
+                result = transformer.Transform(input.JsonMap, input.InputJson.ToString());
 
             }
             catch (Exception ex)

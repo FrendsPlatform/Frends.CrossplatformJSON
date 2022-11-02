@@ -1,7 +1,7 @@
 # Frends.JSON.EnforceTypes
 
 [![Frends.JSON.EnforceTypes Main](https://github.com/FrendsPlatform/Frends.CrossplatformJSON/actions/workflows/EnforceTypes_build_and_test_on_main.yml/badge.svg)](https://github.com/FrendsPlatform/Frends.CrossplatformJSON/actions/workflows/EnforceTypes_build_and_test_on_main.yml)
-![MyGet](https://img.shields.io/myget/frends-tasks/v/Frends.CrossplatformJSON.JSON.EnforceTypes?label=NuGet)
+![MyGet](https://img.shields.io/myget/frends-tasks/v/Frends.JSON.EnforceTypes?label=NuGet)
 ![GitHub](https://img.shields.io/github/license/FrendsPlatform/Frends.CrossplatformJSON?label=License)
 ![Coverage](https://app-github-custom-badges.azurewebsites.net/Badge?key=FrendsPlatform/Frends.CrossplatformJSON/Frends.JSON.EnforceTypes|main)
 

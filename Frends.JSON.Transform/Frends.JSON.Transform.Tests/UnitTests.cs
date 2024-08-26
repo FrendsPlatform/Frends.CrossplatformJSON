@@ -93,7 +93,7 @@ class TestClass
         var firstElement = result.JToken.firstElement;
 
         Assert.AreEqual("first element", (string)firstElement);
-            
+
     }
 
     [Test]

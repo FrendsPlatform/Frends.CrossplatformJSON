@@ -17,7 +17,7 @@ namespace Frends.JSON.Transform
         /// </summary>
         /// <param name="input">Input parameters</param>
         /// <returns>Object { string Result, JToken ToJson() }</returns>
-        public static Result Transform([PropertyTab]Input input)
+        public static Result Transform([PropertyTab] Input input)
         {
             string result;
             //Try parse input Json for simple validation

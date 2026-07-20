@@ -75,9 +75,9 @@ namespace Frends.JSON.EnforceTypes
 
         private static void ChangeJTokenIntoArray(JToken jToken)
         {
-            if ((jToken.Parent is JProperty jProperty) && 
-                !(jToken.ToString().Equals("null")) && 
-                !(jToken.Type == JTokenType.Null) && 
+            if ((jToken.Parent is JProperty jProperty) &&
+                !(jToken.ToString().Equals("null")) &&
+                !(jToken.Type == JTokenType.Null) &&
                 !(jToken is JArray))
             {
                 var jArray = new JArray();

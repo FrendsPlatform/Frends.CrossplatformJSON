@@ -1,9 +1,9 @@
 ﻿namespace Frends.JSON.EnforceTypes.Definitions
 {
     /// <summary>
-    /// Parameters class usually contains parameters that are required.
+    /// Input parameters for the EnforceTypes task.
     /// </summary>
-    public class EnforceTypesInput
+    public class Input
     {
         /// <summary>
         /// The JSON string to be processed.

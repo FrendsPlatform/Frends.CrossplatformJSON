@@ -33,7 +33,7 @@ internal static class ErrorHandler
         if (string.IsNullOrEmpty(customMessage))
         {
             ExceptionDispatchInfo.Capture(exception).Throw();
-            throw exception; // unreachable, satisfies compiler flow analysis
+            throw exception; // Fallback for compiler flow analysis; ExceptionDispatchInfo.Throw() above does not return
         }
 
         throw new Exception(customMessage, exception);

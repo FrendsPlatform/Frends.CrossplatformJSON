@@ -16,7 +16,7 @@ namespace Frends.JSON.Transform.Definitions
         /// <summary>
         /// The original exception that caused the failure.
         /// </summary>
-        /// <example>System.Exception</example>
+        /// <example>System.FormatException: Input Json is not valid: ...</example>
         public Exception AdditionalInfo { get; private set; }
 
         internal Error(string message, Exception additionalInfo)

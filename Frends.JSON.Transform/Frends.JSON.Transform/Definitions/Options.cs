@@ -19,7 +19,7 @@ namespace Frends.JSON.Transform.Definitions
         /// Custom error message to include when a failure occurs.
         /// Leave empty to use the original exception message.
         /// </summary>
-        /// <example></example>
+        /// <example>Transform failed due to invalid input</example>
         [DefaultValue("")]
         public string ErrorMessageOnFailure { get; set; }
     }

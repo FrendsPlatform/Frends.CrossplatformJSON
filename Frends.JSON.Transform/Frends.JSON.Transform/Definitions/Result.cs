@@ -31,7 +31,7 @@ namespace Frends.JSON.Transform.Definitions
         /// Error details when the task fails and ThrowErrorOnFailure is false.
         /// Null on success.
         /// </summary>
-        /// <example>null</example>
+        /// <example>{ Message = "Json transformation failed: ...", AdditionalInfo = System.Exception }</example>
         public Error Error { get; private set; }
 
         public Result(string transformationResult, JToken jToken)

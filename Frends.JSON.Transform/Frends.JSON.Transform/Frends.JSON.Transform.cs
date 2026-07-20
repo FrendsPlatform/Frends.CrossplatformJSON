@@ -18,7 +18,7 @@ namespace Frends.JSON.Transform
         /// JUST.Net documentation: 'https://github.com/WorkMaze/JUST.net#just'
         /// </summary>
         /// <param name="input">Input parameters</param>
-        /// <param name="options">Options for error handling</param>
+        /// <param name="options">Task options</param>
         /// <param name="cancellationToken">Token to cancel the task.</param>
         /// <returns>Object { bool Success, string Transformation, JToken JToken, Error Error }</returns>
         public static Result Transform([PropertyTab] Input input, [PropertyTab] Options options, CancellationToken cancellationToken)

@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System;
+using System.Threading;
 using Newtonsoft.Json.Linq;
 using Frends.JSON.Transform.Definitions;
 
@@ -26,6 +27,7 @@ class TestClass
 ""StillBreething"": ""#valueof($.retired)""
 }
 ";
+    private const string _invalidJson = @"{ foo baar";
     [SetUp]
     public void TestSetup()
     {
@@ -109,7 +111,7 @@ class TestClass
     [Test]
     public void InvalidJsonInputThrowsException()
     {
-        _testInput.InputJson = @"{ foo baar";
+        _testInput.InputJson = _invalidJson;
 
         Assert.Throws<FormatException>(() => JSON.Transform(_testInput, new Options(), default));
     }
@@ -120,6 +122,52 @@ class TestClass
         _testInput.JsonMap = @"{""age"":""#valuof($.age)"", ""foo}";
 
         Assert.Throws<Exception>(() => JSON.Transform(_testInput, new Options(), default));
+    }
+
+    [Test]
+    public void TransformReturnsErrorResultWhenThrowErrorOnFailureFalse()
+    {
+        _testInput.InputJson = _invalidJson;
+        var options = new Options { ThrowErrorOnFailure = false };
+
+        var result = JSON.Transform(_testInput, options, default);
+
+        Assert.IsFalse(result.Success);
+        Assert.IsNotNull(result.Error);
+        Assert.IsNotNull(result.Error.Message);
+        Assert.IsInstanceOf<FormatException>(result.Error.AdditionalInfo);
+    }
+
+    [Test]
+    public void TransformReturnsErrorWithCustomMessageWhenThrowErrorOnFailureFalse()
+    {
+        _testInput.InputJson = _invalidJson;
+        var options = new Options { ThrowErrorOnFailure = false, ErrorMessageOnFailure = "Custom error" };
+
+        var result = JSON.Transform(_testInput, options, default);
+
+        Assert.IsFalse(result.Success);
+        Assert.IsNotNull(result.Error);
+        Assert.That(result.Error.Message.StartsWith("Custom error"));
+    }
+
+    [Test]
+    public void TransformThrowsWithCustomErrorMessage()
+    {
+        _testInput.InputJson = _invalidJson;
+        var options = new Options { ThrowErrorOnFailure = true, ErrorMessageOnFailure = "Custom error" };
+
+        var ex = Assert.Throws<Exception>(() => JSON.Transform(_testInput, options, default));
+        Assert.AreEqual("Custom error", ex.Message);
+    }
+
+    [Test]
+    public void TransformThrowsOnCancellation()
+    {
+        var cts = new CancellationTokenSource();
+        cts.Cancel();
+
+        Assert.Throws<OperationCanceledException>(() => JSON.Transform(_testInput, new Options(), cts.Token));
     }
 }
 

@@ -10,6 +10,11 @@ namespace Frends.JSON.Transform.Definitions
     public class Result
     {
         /// <summary>
+        /// Indicates whether the task completed successfully.
+        /// </summary>
+        public bool Success { get; private set; }
+
+        /// <summary>
         /// Transformation result as string
         /// </summary>
         /// <example>"{\"firstName\":\"veijo\"}"</example>
@@ -21,11 +26,23 @@ namespace Frends.JSON.Transform.Definitions
         /// <example>{"firstName": "veijo"}</example>
         public dynamic JToken { get; private set; }
 
+        /// <summary>
+        /// Error details when the task fails and ThrowErrorOnFailure is false.
+        /// Null on success.
+        /// </summary>
+        public Error Error { get; private set; }
+
         public Result(string transformationResult, JToken jToken)
         {
+            Success = true;
             Transformation = transformationResult;
-
             JToken = jToken;
+        }
+
+        internal Result(Error error)
+        {
+            Success = false;
+            Error = error;
         }
     }
 }

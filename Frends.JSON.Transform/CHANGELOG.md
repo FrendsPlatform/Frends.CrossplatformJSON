@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.0] - 2026-07-20
+### Changed
+- The task now targets .NET 8.
+- Added an **Options** parameter that lets you control error handling: set *Throw error on failure* to `false` to receive errors as a result value instead of an exception. The result now includes `Success` and `Error` fields.
+- Added cancellation support so the task can be stopped when running in a Frends process.
+
 ## [1.0.2] - 2022-11-2
 ### Fixed
 - Updated dependency Newtonsoft.Json from 13.0.1 to 12.0.1

@@ -1,6 +1,5 @@
 using NUnit.Framework;
 using System;
-using System.Threading;
 using Newtonsoft.Json.Linq;
 using Frends.JSON.Transform.Definitions;
 
@@ -41,21 +40,21 @@ class TestClass
     public void TransformShouldAllowJTokenAsInput()
     {
         _testInput.InputJson = JToken.Parse(_testJson);
-        var result = JSON.Transform(_testInput, new Options(), new CancellationToken());
+        var result = JSON.Transform(_testInput, new Options(), default);
         Assert.AreEqual("{\"FullName\":\"Veijo Frends\",\"Age\":30,\"StillBreething\":false}", result.Transformation);
     }
 
     [Test]
     public void TransformShouldAllowStringAsInput()
     {
-        var result = JSON.Transform(_testInput, new Options(), new CancellationToken());
+        var result = JSON.Transform(_testInput, new Options(), default);
         Assert.AreEqual("{\"FullName\":\"Veijo Frends\",\"Age\":30,\"StillBreething\":false}", result.Transformation);
     }
 
     [Test]
     public void TransformMapsStringData()
     {
-        var result = JSON.Transform(_testInput, new Options(), new CancellationToken());
+        var result = JSON.Transform(_testInput, new Options(), default);
 
         var fullName = result.JToken.FullName;
 
@@ -65,7 +64,7 @@ class TestClass
     [Test]
     public void TransformMapsNumbersCorrectly()
     {
-        var result = JSON.Transform(_testInput, new Options(), new CancellationToken());
+        var result = JSON.Transform(_testInput, new Options(), default);
 
         var age = result.JToken.Age;
 
@@ -76,7 +75,7 @@ class TestClass
     [Test]
     public void TransformationMapsBoolValueCorrectly()
     {
-        var result = JSON.Transform(_testInput, new Options(), new CancellationToken());
+        var result = JSON.Transform(_testInput, new Options(), default);
 
         var breething = result.JToken.StillBreething;
 
@@ -90,11 +89,10 @@ class TestClass
         _testInput.InputJson = @"{ ""array"": [{""key"":""first element""},{""key"":""second element""}]}";
         _testInput.JsonMap = @"{""firstElement"":""#valueof($.array[0].key)""}";
 
-        var result = JSON.Transform(_testInput, new Options(), new CancellationToken());
+        var result = JSON.Transform(_testInput, new Options(), default);
         var firstElement = result.JToken.firstElement;
 
         Assert.AreEqual("first element", (string)firstElement);
-            
     }
 
     [Test]
@@ -103,7 +101,7 @@ class TestClass
         _testInput.InputJson = @"[{""key"": ""first element""}, {""key"": ""second element""}]";
         _testInput.JsonMap = @"{""firstElement"": ""#valueof($.[0].key)""}";
 
-        var ex = Assert.Throws<Exception>(() => JSON.Transform(_testInput, new Options(), new CancellationToken()));
+        var ex = Assert.Throws<Exception>(() => JSON.Transform(_testInput, new Options(), default));
         Assert.That(ex.Message.Equals("Json transformation failed: Input Json is not valid: Array is not supported as root element."));
     }
 
@@ -113,7 +111,7 @@ class TestClass
     {
         _testInput.InputJson = @"{ foo baar";
 
-        Assert.Throws<FormatException>(() => JSON.Transform(_testInput, new Options(), new CancellationToken()));
+        Assert.Throws<FormatException>(() => JSON.Transform(_testInput, new Options(), default));
     }
 
     [Test]
@@ -121,7 +119,7 @@ class TestClass
     {
         _testInput.JsonMap = @"{""age"":""#valuof($.age)"", ""foo}";
 
-        Assert.Throws<Exception>(() => JSON.Transform(_testInput, new Options(), new CancellationToken()));
+        Assert.Throws<Exception>(() => JSON.Transform(_testInput, new Options(), default));
     }
 }
 

@@ -10,11 +10,13 @@ namespace Frends.JSON.Transform.Definitions
         /// <summary>
         /// Human-readable error message describing what went wrong.
         /// </summary>
+        /// <example>Json transformation failed: ...</example>
         public string Message { get; private set; }
 
         /// <summary>
         /// The original exception that caused the failure.
         /// </summary>
+        /// <example>System.Exception</example>
         public Exception AdditionalInfo { get; private set; }
 
         internal Error(string message, Exception additionalInfo)

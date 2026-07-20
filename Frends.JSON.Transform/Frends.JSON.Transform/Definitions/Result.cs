@@ -12,6 +12,7 @@ namespace Frends.JSON.Transform.Definitions
         /// <summary>
         /// Indicates whether the task completed successfully.
         /// </summary>
+        /// <example>true</example>
         public bool Success { get; private set; }
 
         /// <summary>
@@ -30,6 +31,7 @@ namespace Frends.JSON.Transform.Definitions
         /// Error details when the task fails and ThrowErrorOnFailure is false.
         /// Null on success.
         /// </summary>
+        /// <example>null</example>
         public Error Error { get; private set; }
 
         public Result(string transformationResult, JToken jToken)

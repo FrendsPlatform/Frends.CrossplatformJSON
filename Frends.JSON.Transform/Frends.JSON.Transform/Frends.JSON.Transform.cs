@@ -21,7 +21,7 @@ namespace Frends.JSON.Transform
         /// <param name="options">Options for error handling</param>
         /// <param name="cancellationToken">Token to cancel the task.</param>
         /// <returns>Object { bool Success, string Transformation, JToken JToken, Error Error }</returns>
-        public static Result Transform([PropertyTab]Input input, [PropertyTab]Options options, CancellationToken cancellationToken)
+        public static Result Transform([PropertyTab] Input input, [PropertyTab] Options options, CancellationToken cancellationToken)
         {
             try
             {

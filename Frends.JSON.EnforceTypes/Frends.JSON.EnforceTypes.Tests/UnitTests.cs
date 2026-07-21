@@ -15,7 +15,7 @@ namespace Frends.JSON.EnforceTypes.Tests
         {
             var json = "{\"hello\": \"123\",\"hello_2\": \"123.5\",\"world\": \"true\",\"bad_arr\": \"hello, world\",\"bad_arr_2\": { \"prop1\": 123 },\"good_arr\": [ \"hello, world\" ],\"good_arr_2\": [ { \"prop1\": 123 } ]}";
             var result = JSON.EnforceTypes(
-                new EnforceTypesInput
+                new Input
                 {
                     Json = json,
                     Rules = new[]
@@ -28,7 +28,7 @@ namespace Frends.JSON.EnforceTypes.Tests
                         new JsonTypeRule{JsonPath = "good_arr", DataType = JsonDataType.Array },
                         new JsonTypeRule{JsonPath = "good_arr_2", DataType = JsonDataType.Array },
                     }
-                }, new CancellationToken());
+                }, new Options(), new CancellationToken());
             var expected = JObject.Parse("{\"hello\": 123,\"hello_2\": 123.5,\"world\": true,\"bad_arr\": [\"hello, world\"],\"bad_arr_2\": [{\"prop1\": 123}],\"good_arr\": [\"hello, world\"],\"good_arr_2\": [{\"prop1\": 123}]}");
             Console.WriteLine("Expected: \n" + expected);
             Console.WriteLine("Result: \n" + result.JsonAsString);
@@ -40,7 +40,7 @@ namespace Frends.JSON.EnforceTypes.Tests
         {
             var json = "{\"hello\": \"123\",\"hello_2\": \"123.5\",\"world\": \"true\",\"bad_arr\": \"hello, world\",\"bad_arr_2\": { \"prop1\": 123 },\"good_arr\": [ \"hello, world\" ],\"good_arr_2\": [ { \"prop1\": 123 } ]}";
             var result = JSON.EnforceTypes(
-                new EnforceTypesInput
+                new Input
                 {
                     Json = json,
                     Rules = new[]
@@ -53,7 +53,7 @@ namespace Frends.JSON.EnforceTypes.Tests
                         new JsonTypeRule{JsonPath = "$.good_arr", DataType = JsonDataType.Array },
                         new JsonTypeRule{JsonPath = "$.good_arr_2", DataType = JsonDataType.Array },
                     }
-                }, new CancellationToken());
+                }, new Options(), new CancellationToken());
             var expected = JObject.Parse("{\"hello\": 123,\"hello_2\": 123.5,\"world\": true,\"bad_arr\": [\"hello, world\"],\"bad_arr_2\": [{\"prop1\": 123}],\"good_arr\": [\"hello, world\"],\"good_arr_2\": [{\"prop1\": 123}]}");
             Console.WriteLine("Expected: \n" + expected);
             Console.WriteLine("Result: \n" + result.JsonAsString);
@@ -212,7 +212,7 @@ namespace Frends.JSON.EnforceTypes.Tests
     }
 }";
             var result = JSON.EnforceTypes(
-                new EnforceTypesInput
+                new Input
                 {
                     Json = json,
                     Rules = new[]
@@ -221,7 +221,7 @@ namespace Frends.JSON.EnforceTypes.Tests
                         new JsonTypeRule{JsonPath = "$.arr2", DataType = JsonDataType.Array },
                         new JsonTypeRule{JsonPath = "$.arr3", DataType = JsonDataType.Array },
                     }
-                }, new CancellationToken());
+                }, new Options(), new CancellationToken());
             var expected = JObject.Parse(@"{
   ""arr1"": null, 
   ""arr2"": ""null"",
@@ -254,7 +254,7 @@ namespace Frends.JSON.EnforceTypes.Tests
   ]
 }";
             var result = JSON.EnforceTypes(
-                new EnforceTypesInput
+                new Input
                 {
                     Json = json,
                     Rules = new[]
@@ -263,7 +263,7 @@ namespace Frends.JSON.EnforceTypes.Tests
                         new JsonTypeRule{JsonPath = "$.arrays[1].arr2", DataType = JsonDataType.Array },
                         new JsonTypeRule{JsonPath = "$.arrays[2].arr3", DataType = JsonDataType.Array },
                     }
-                }, new CancellationToken());
+                }, new Options(), new CancellationToken());
             var expected = JObject.Parse(@"{
   ""arrays"": [
     {
@@ -282,6 +282,56 @@ namespace Frends.JSON.EnforceTypes.Tests
   ]
 }");
             Assert.AreEqual(expected.ToString(), result.JsonAsString);
+        }
+
+        [Test]
+        public void EnforceTypes_InvalidJson_ReturnsFalseWhenNotThrowing()
+        {
+            var result = JSON.EnforceTypes(
+                new Input
+                {
+                    Json = "not valid json",
+                    Rules = Array.Empty<JsonTypeRule>()
+                },
+                new Options { ThrowErrorOnFailure = false },
+                new CancellationToken());
+
+            Assert.IsFalse(result.Success);
+            Assert.IsNull(result.JsonAsString);
+            Assert.IsNotNull(result.Error);
+            Assert.IsNotEmpty(result.Error.Message);
+            Assert.IsNotNull(result.Error.AdditionalInfo);
+        }
+
+        [Test]
+        public void EnforceTypes_InvalidJson_ThrowsWhenOptionEnabled()
+        {
+            Assert.Throws<Exception>(() => JSON.EnforceTypes(
+                new Input
+                {
+                    Json = "not valid json",
+                    Rules = Array.Empty<JsonTypeRule>()
+                },
+                new Options { ThrowErrorOnFailure = true },
+                new CancellationToken()));
+        }
+
+        [Test]
+        public void EnforceTypes_CustomErrorMessage_AppearsInResult()
+        {
+            const string customMessage = "Custom error message";
+            var result = JSON.EnforceTypes(
+                new Input
+                {
+                    Json = "not valid json",
+                    Rules = Array.Empty<JsonTypeRule>()
+                },
+                new Options { ThrowErrorOnFailure = false, ErrorMessageOnFailure = customMessage },
+                new CancellationToken());
+
+            Assert.IsFalse(result.Success);
+            Assert.IsNotNull(result.Error);
+            Assert.That(result.Error.Message.StartsWith(customMessage));
         }
     }
 }

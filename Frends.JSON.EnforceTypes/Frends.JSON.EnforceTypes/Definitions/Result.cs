@@ -14,6 +14,7 @@
         /// <summary>
         /// Error details. Null when the task succeeds.
         /// </summary>
+        /// <example>{"Message": "Value at '$.count' could not be converted to Integer.", "AdditionalInfo": {}}</example>
         public Error Error { get; private set; }
 
         /// <summary>

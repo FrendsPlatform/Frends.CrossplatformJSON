@@ -16,6 +16,7 @@ namespace Frends.JSON.EnforceTypes.Definitions
         /// <summary>
         /// The exception that caused the error.
         /// </summary>
+        /// <example>System.Exception: Value at '$.count' could not be converted to Integer.</example>
         public Exception AdditionalInfo { get; set; }
     }
 }

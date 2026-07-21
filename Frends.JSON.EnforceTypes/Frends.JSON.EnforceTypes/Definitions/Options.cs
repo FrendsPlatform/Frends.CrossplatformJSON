@@ -17,7 +17,7 @@ namespace Frends.JSON.EnforceTypes.Definitions
         /// <summary>
         /// Custom error message to include when the task fails. If empty, the original exception message is used.
         /// </summary>
-        /// <example></example>
+        /// <example>An error occurred while enforcing types in the JSON document.</example>
         [DefaultValue("")]
         public string ErrorMessageOnFailure { get; set; } = string.Empty;
     }

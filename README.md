@@ -1,3 +1,13 @@
+> [!WARNING]
+> # DEPRECATED REPOSITORY
+> **Notice:** This repository is no longer actively maintained.
+> ### 🚀 Migration
+> Please use the updated repository for new projects and updates:
+> 👉 **[FrendsPlatform / Frends.JSON2](https://github.com/FrendsPlatform/Frends.JSON2)**
+>
+>---
+>*For all actively supported tasks, visit [tasks.frends.com](https://tasks.frends.com).*
+
 # Frends.CrossplatformJSON
 
 Frends tasks for JSON manipulation.
